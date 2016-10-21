@@ -117,6 +117,7 @@
     <Folder Include="Scripts\Model\" />
     <Folder Include="Scripts\View\" />
     <Folder Include="Scripts\ViewModel\" />
+    <Folder Include="Scripts\Utility\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
