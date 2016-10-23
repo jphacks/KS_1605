@@ -9,7 +9,7 @@
 	    <Button Text="Start"
 	           HorizontalOptions="Center"
 	           VerticalOptions="CenterAndExpand"
-			   x:Name="NextShare" />
+			   x:Name="MainButton" />
 
 	    <Button Text="Memory"
 	            HorizontalOptions="Center"
