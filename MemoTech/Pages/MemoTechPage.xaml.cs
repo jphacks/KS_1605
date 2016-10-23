@@ -12,13 +12,17 @@ namespace MemoTech
 
 			Title = "TitlePage";
 
-			var start = this.FindByName<Button>("Start");
+			var start = this.FindByName<Button>("NextShare");
 			start.Clicked += async (sender, arg) =>
 			{
 				await Navigation.PushAsync(new SharePage());
 			};
 
-			Content = start;
+			var memory = this.FindByName<Button>("NextMemory");
+			memory.Clicked += async (sender, arg) =>
+			{
+				await Navigation.PushAsync(new SharePage());
+			};
 		}
 	}
 }

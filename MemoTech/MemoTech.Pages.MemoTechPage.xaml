@@ -3,8 +3,7 @@
 	<StackLayout>
 		<Label Text="Memory Tech(仮)"
 	           HorizontalOptions="Center"
-	           VerticalOptions="CenterAndExpand"
-			   x:Name="AppName" />
+	           VerticalOptions="CenterAndExpand" />
 
 	    <Button Text="Start"
 	           HorizontalOptions="Center"
@@ -13,7 +12,7 @@
 
 	    <Button Text="Memory"
 	            HorizontalOptions="Center"
-	            VerticalOptions="StartAndExpand"
+	            VerticalOptions="CenterAndExpand"
 			    x:Name="NextMemory"/>
 	</StackLayout>
 </ContentPage>

@@ -9,7 +9,7 @@ namespace MemoTech
 	{
 		public SharePage()
 		{
-			//InitializeComponent();
+			InitializeComponent();
 
 			Title = "SharePage";
 		}
