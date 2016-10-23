@@ -20,7 +20,6 @@ namespace MemoTech
 				//0は仮処理
 				await Navigation.PushAsync(new AlbumPage(0));
 			};
-
 		}
 	}
 }
