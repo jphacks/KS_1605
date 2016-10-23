@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:MemoTech" x:Class="MemoTech.MemoTechPage">
+	<StackLayout>
+		<Label Text="Memory Tech(仮)"
+	           HorizontalOptions="Center"
+	           VerticalOptions="CenterAndExpand"
+			   x:Name="AppName" />
+
+	    <Button Text="Start"
+	           HorizontalOptions="Center"
+	           VerticalOptions="CenterAndExpand"
+			   x:Name="NextShare" />
+
+	    <Button Text="Memory"
+	            HorizontalOptions="Center"
+	            VerticalOptions="StartAndExpand"
+			    x:Name="NextMemory"/>
+	</StackLayout>
+</ContentPage>
