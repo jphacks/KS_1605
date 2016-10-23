@@ -33,6 +33,12 @@
     <EmbeddedResource Include="Pages\SharePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\MemoryPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\AlbumPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -44,6 +50,12 @@
     </Compile>
     <Compile Include="Pages\SharePage.xaml.cs">
       <DependentUpon>SharePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MemoryPage.xaml.cs">
+      <DependentUpon>MemoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AlbumPage.xaml.cs">
+      <DependentUpon>AlbumPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

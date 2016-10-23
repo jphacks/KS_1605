@@ -21,7 +21,7 @@ namespace MemoTech
 			var memory = this.FindByName<Button>("NextMemory");
 			memory.Clicked += async (sender, arg) =>
 			{
-				await Navigation.PushAsync(new SharePage());
+				await Navigation.PushAsync(new MemoryPage());
 			};
 		}
 	}
