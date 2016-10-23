@@ -22,8 +22,18 @@ namespace MemoTech
 			employees.Add(new Employee{ DisplayName="Memory Album 3"});
 
 			var list = this.FindByName<ListView>("EmployeeView");
+			list.IsPullToRefreshEnabled = true;
+
 			list.ItemsSource = employees;
+
+			list.ItemSelected += async (sender, e) =>
+			{
+				//0は仮処理
+				await Navigation.PushAsync(new AlbumPage(0));
+			};
+
 		}
+
 	}
 
 	public class Employee{
