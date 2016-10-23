@@ -17,7 +17,8 @@ namespace MemoTech
 			var share = this.FindByName<Button>("BLEShare");
 			share.Clicked += async (sender, arg) =>
 			{
-				await Navigation.PushAsync(new AlbumPage());
+				//0は仮処理
+				await Navigation.PushAsync(new AlbumPage(0));
 			};
 
 		}
