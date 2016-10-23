@@ -2276,6 +2276,12 @@ namespace MemoTech.Droid
 			// aapt resource value: 0x7f0b0013
 			public const int bottom = 2131427347;
 			
+			// aapt resource value: 0x7f0b0099
+			public const int button1 = 2131427481;
+			
+			// aapt resource value: 0x7f0b009a
+			public const int button2 = 2131427482;
+			
 			// aapt resource value: 0x7f0b0044
 			public const int buttonPanel = 2131427396;
 			
@@ -2648,8 +2654,8 @@ namespace MemoTech.Droid
 			// aapt resource value: 0x7f0b0048
 			public const int title_template = 2131427400;
 			
-			// aapt resource value: 0x7f0b0099
-			public const int toolbar = 2131427481;
+			// aapt resource value: 0x7f0b009b
+			public const int toolbar = 2131427483;
 			
 			// aapt resource value: 0x7f0b001c
 			public const int top = 2131427356;
@@ -2922,7 +2928,10 @@ namespace MemoTech.Droid
 			public const int Tabbar = 2130903095;
 			
 			// aapt resource value: 0x7f030038
-			public const int Toolbar = 2130903096;
+			public const int Test = 2130903096;
+			
+			// aapt resource value: 0x7f030039
+			public const int Toolbar = 2130903097;
 			
 			static Layout()
 			{

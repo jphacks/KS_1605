@@ -8,7 +8,11 @@ namespace MemoTech
 		{
 			InitializeComponent();
 
-			MainPage = new MemoTechPage();
+			MainPage = new NavigationPage(new MemoTechPage())
+			{
+				BarBackgroundColor = Color.FromRgba(0.2, 0.6, 0.86, 1),
+				BarTextColor = Color.White
+			};
 		}
 
 		protected override void OnStart()
