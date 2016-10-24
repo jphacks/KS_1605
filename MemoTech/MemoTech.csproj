@@ -54,6 +54,8 @@
     <Compile Include="Scripts\Utility\EnumUtility.cs" />
     <Compile Include="Scripts\Utility\SaveDataUtility.cs" />
     <Compile Include="Scripts\ViewModel\MemoTechViewModel.cs" />
+    <Compile Include="Scripts\ViewModel\MemoryViewModel.cs" />
+    <Compile Include="Scripts\View\AlbumListCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\View\" />

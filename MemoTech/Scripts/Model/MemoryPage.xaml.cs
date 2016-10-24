@@ -9,22 +9,17 @@ namespace MemoTech
 	public partial class MemoryPage : ContentPage
 	{
 
+		private MemoryViewModel viewModel = new MemoryViewModel();
+
 		public MemoryPage()
 		{
 			InitializeComponent();
 
 			Title = "MemoryPage";
 
-			var employees = new ObservableCollection<AlbumList>();
-
-			employees.Add(new AlbumList { Title="Memory Album 1"});
-			employees.Add(new AlbumList { Title = "Memory Album 2"});
-			employees.Add(new AlbumList { Title = "Memory Album 3"});
-
 			var list = this.FindByName<ListView>("AlbumList");
-			//list.IsPullToRefreshEnabled = true;
 
-			list.ItemsSource = employees;
+			list.ItemsSource = viewModel.AlbumList;
             
 			list.ItemSelected += async (sender, e) =>
 			{
@@ -41,9 +36,4 @@ namespace MemoTech
         }
 
     }
-
-	public class AlbumList
-    {
-	    public string Title {get; set;}
-	}
 }

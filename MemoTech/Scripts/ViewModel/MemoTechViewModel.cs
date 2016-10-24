@@ -16,8 +16,7 @@ namespace MemoTech.Scripts.ViewModel
 			if (SaveDataUtility.CheckData(stateKey))
 			{
 				buttonState = (State)SaveDataUtility.Load<int>(stateKey);
-			}
-			else {
+			} else {
 				buttonState = State.Start;
 			}
 		}
