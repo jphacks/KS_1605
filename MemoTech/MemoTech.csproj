@@ -52,6 +52,7 @@
       <DependentUpon>AlbumPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Scripts\Utility\EnumUtility.cs" />
+    <Compile Include="Scripts\Utility\SaveDataUtility.cs" />
     <Compile Include="Scripts\ViewModel\MemoTechViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

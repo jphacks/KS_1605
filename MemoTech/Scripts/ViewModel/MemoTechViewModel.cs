@@ -7,8 +7,8 @@ namespace MemoTech.Scripts.ViewModel
         private string[] stateTitle = { "Start", "Share" };
 
         public State buttonState = State.Start;
+        private string stateKey = "buttonState";
         public string StateTitle { get { return stateTitle[(int)buttonState]; } }
-
 
         public State MainButton()
         {
@@ -16,6 +16,7 @@ namespace MemoTech.Scripts.ViewModel
             {
                 case State.Start:
                     buttonState = State.Share;
+                    //SaveDataUtility.Save<State>(stateKey, buttonState);
                     break;
                 case State.Share:
                     buttonState = State.Start;

@@ -32,13 +32,13 @@ namespace MemoTech
                     //仮処理で0
                     await Navigation.PushAsync(new AlbumPage(0));
                 }
-                Clicked();
+                ChangeState();
             };
 
             stop.IsEnabled = false;
             stop.Clicked += (sender, arg) =>
             {
-                Clicked();
+                ChangeState();
                 viewModel.StopButton();
             };
 
@@ -46,9 +46,11 @@ namespace MemoTech
             {
                 await Navigation.PushAsync(new MemoryPage());
             };
+
+
         }
 
-        private void Clicked()
+        private void ChangeState()
         {
             var state = viewModel.MainButton();
             mainButton.Text = viewModel.StateTitle;
