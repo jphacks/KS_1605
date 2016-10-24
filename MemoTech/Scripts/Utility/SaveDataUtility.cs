@@ -17,7 +17,7 @@ namespace MemoTech.Scripts.Utility
         /// <param name="variable">対象の変数</param>
         public static void Save<T>(string dataKey, T variable) where T : IComparable
         {
-            Application.Current.Properties[dataKey] = variable;
+			Application.Current.Properties[dataKey] = variable;
         }
 
         /// <summary>

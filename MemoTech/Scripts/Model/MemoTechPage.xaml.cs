@@ -47,8 +47,8 @@ namespace MemoTech
                 await Navigation.PushAsync(new MemoryPage());
             };
 
-
-        }
+			InitModel();
+		}
 
         private void ChangeState()
         {
@@ -56,6 +56,12 @@ namespace MemoTech
             mainButton.Text = viewModel.StateTitle;
             stop.IsEnabled = (state == State.Start) ? false : true;
         }
+
+		private void InitModel() 
+		{
+			mainButton.Text = viewModel.StateTitle;
+			stop.IsEnabled = (viewModel.buttonState == State.Start) ? false : true;
+		}
 
 	}
 }
