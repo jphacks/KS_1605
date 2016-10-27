@@ -38,6 +38,7 @@ namespace MemoTech.Scripts.Utility
         /// <returns></returns>
         public static bool CheckData(string dataKey)
         {
+			if (Application.Current == null) return false;
             if (Application.Current.Properties.ContainsKey(dataKey))
             {
                 return true;

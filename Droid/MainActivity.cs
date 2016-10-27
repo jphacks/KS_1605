@@ -8,6 +8,8 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 
+using System.Threading.Tasks;
+
 namespace MemoTech.Droid
 {
 	[Activity(Label = "MemoTech.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -22,7 +24,41 @@ namespace MemoTech.Droid
 
 			global::Xamarin.Forms.Forms.Init(this, bundle);
 
-			LoadApplication(new App());
+			var app = new App();
+
+			Bind(app);
+
+			LoadApplication(app);
+		}
+
+		private void Bind(App target) 
+		{
+			target.startPage.Main.Clicked += (sender, e) =>
+			{
+				Console.WriteLine("Main Button Clicked for Android Process");
+				Console.WriteLine(BluetoothLEManager.Instance);
+				if (!BluetoothLEManager.Instance.IsScanning)
+				{
+					BluetoothLEManager.Instance.BegineScanningForDevices();
+				} else {
+					BluetoothLEManager.Instance.StopScanningForDevices();
+				}
+			};
+
+			target.startPage.Stop.Clicked += (sender, e) =>
+			{
+				StopScanning();
+			};
+		}
+
+		private void StopScanning() 
+		{
+			new Task(() => {
+				if (BluetoothLEManager.Instance.IsScanning)
+				{
+					BluetoothLEManager.Instance.StopScanningForDevices();
+				}
+			}).Start();
 		}
 	}
 }

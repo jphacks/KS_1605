@@ -4,11 +4,13 @@ namespace MemoTech
 {
 	public partial class App : Application
 	{
+		public MemoTechPage startPage = new MemoTechPage();
+
 		public App()
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new MemoTechPage())
+			MainPage = new NavigationPage(startPage)
 			{
 				BarBackgroundColor = Color.FromRgba(0.2, 0.6, 0.86, 1),
 				BarTextColor = Color.White

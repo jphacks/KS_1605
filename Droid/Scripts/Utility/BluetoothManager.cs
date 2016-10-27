@@ -4,48 +4,101 @@ using Android.Bluetooth;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-
 namespace MemoTech.Droid
 {
-	public class BluetoothManager : Java.Lang.Object, BluetoothAdapter.ILeScanCallback
+	public class BluetoothLEManager : Java.Lang.Object, BluetoothAdapter.ILeScanCallback
 	{
 
-		protected BluetoothManager manager;
-		protected BluetoothAdapter adapter;
-
+		private BluetoothManager manager;
+		//bluetoothの接続に必要
+		private BluetoothAdapter adapter;
+		//gatt = サーバーのようなもの : Callbackどのようなサービスを使うのか決定して返す
+		private GattaCallback gattCallback;
+		private Dictionary<BluetoothDevice, BluetoothGatt> connectedDevices = new Dictionary<BluetoothDevice, BluetoothGatt>();
+		private bool isScanning = false;
+		private const int scanTimeout = 10000;
 		private List<BluetoothDevice> discoveredDevices = new List<BluetoothDevice>();
-		private static BluetoothManager instance;
+		//シングルトン
+		private static BluetoothLEManager instance;
 
+		//CustomEventのdelegate
+		public event EventHandler ScanTimeoutElapsed = delegate{};
 		public event EventHandler<DeviceDiscoveredEventArgs> DeviceDiscovered = delegate {};
 		public event EventHandler<DeviceConnectionEventArgs> DeviceConnected = delegate {};
 		public event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected = delegate {};
 		public event EventHandler<ServiceDiscoveredEventArgs> ServiceDiscovered = delegate {};
+
+		public bool IsScanning
+		{
+			get { return isScanning; }
+		}
 
 		public List<BluetoothDevice> DiscoveredDevices
 		{
 			get { return discoveredDevices; }
 		}
 
-		public static BluetoothManager Instance
+		public static BluetoothLEManager Instance
 		{
-			get { return instance; } set{ instance = value; }
+			get { return instance; }
 		}
 
-		static BluetoothManager()
+		public Dictionary<BluetoothDevice, BluetoothGatt> ConnectedDevices
 		{
-			Instance = new BluetoothManager();
+			get { return connectedDevices; }
 		}
 
-		protected BluetoothManager()
+		static BluetoothLEManager()
+		{
+			instance = new BluetoothLEManager();
+		}
+
+		protected BluetoothLEManager()
 		{
 			var appContext = Android.App.Application.Context;
 			manager = (BluetoothManager)appContext.GetSystemService("bluetooth");
+			adapter = manager.Adapter;
+
+			gattCallback = new GattaCallback(this);
 		}
 
+		/// <summary>
+		/// Devicesのスキャンを開始する
+		/// </summary>
+		/// <returns>The scanning for devices.</returns>
+		public async Task BegineScanningForDevices()
+		{
+			discoveredDevices.Clear();
+
+			isScanning = true;
+			adapter.StartLeScan(this);
+
+			await Task.Delay(10000);
+
+			if (isScanning)
+			{
+				adapter.StopLeScan(this);
+				ScanTimeoutElapsed(this, new EventArgs());
+			}
+		}
+
+		/// <summary>
+		/// Deviecesのスキャンを終了する
+		/// </summary>
+		public void StopScanningForDevices()
+		{
+			isScanning = false;
+			adapter.StopLeScan(this);
+		}
+
+		/// <summary>
+		/// デフォルトで用意されているメソッド Scanのときに呼ばれる
+		/// </summary>
 		public void OnLeScan(BluetoothDevice device, int rssi, byte[] scanRecord)
 		{
 			if (!DeviceExistsInDiscoveredList(device))
 			{
+				Console.WriteLine(device);
 				discoveredDevices.Add(device);
 			}
 			DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device, Rssi = rssi, ScanRecord = scanRecord });
@@ -63,11 +116,34 @@ namespace MemoTech.Droid
 			return false;
 		}
 
+		public void ConnectToDevice(BluetoothDevice device)
+		{
+			device.ConnectGatt(Android.App.Application.Context, true, gattCallback);
+		}
+
+		public void DisconnectDevice(BluetoothDevice device)
+		{
+			ConnectedDevices[device].Disconnect();
+			ConnectedDevices[device].Close();
+		}
+
+		public BluetoothDevice GetConnectedDeviceByName(string deviceName)
+		{
+			foreach (var device in connectedDevices) 
+			{
+				if (device.Key.Name == deviceName) 
+				{
+					return device.Key;
+				}
+			}
+			return null;
+		}
+
 		protected class GattaCallback : BluetoothGattCallback
 		{
-			protected BluetoothManager parent;
+			protected BluetoothLEManager parent;
 
-			public GattaCallback(BluetoothManager p)
+			public GattaCallback(BluetoothLEManager p)
 			{
 				parent = p;
 			}
@@ -93,6 +169,5 @@ namespace MemoTech.Droid
 				}
 			}
 		}
-	}
 	}
 }
