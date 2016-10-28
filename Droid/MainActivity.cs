@@ -7,8 +7,12 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Android.Bluetooth;
 
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using MemoTech.Droid.Scripts.Utility;
+using MemoTech.Scripts.Utility;
 
 namespace MemoTech.Droid
 {
@@ -39,7 +43,7 @@ namespace MemoTech.Droid
 				Console.WriteLine(BluetoothLEManager.Instance);
 				if (!BluetoothLEManager.Instance.IsScanning)
 				{
-					BluetoothLEManager.Instance.BegineScanningForDevices();
+					BluetoothLEManager.Instance.BeginScanningForDevices();
 				} else {
 					BluetoothLEManager.Instance.StopScanningForDevices();
 				}

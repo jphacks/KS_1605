@@ -4,7 +4,9 @@ using Android.Bluetooth;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MemoTech.Droid
+using MemoTech.Scripts.Utility;
+
+namespace MemoTech.Droid.Scripts.Utility
 {
 	public class BluetoothLEManager : Java.Lang.Object, BluetoothAdapter.ILeScanCallback
 	{
@@ -17,7 +19,9 @@ namespace MemoTech.Droid
 		private Dictionary<BluetoothDevice, BluetoothGatt> connectedDevices = new Dictionary<BluetoothDevice, BluetoothGatt>();
 		private bool isScanning = false;
 		private const int scanTimeout = 10000;
+		//接続されたことのあるデバイス
 		private List<BluetoothDevice> discoveredDevices = new List<BluetoothDevice>();
+		private Dictionary<BluetoothDevice, IList<BluetoothGattService>> services = new Dictionary<BluetoothDevice, IList<BluetoothGattService>>();
 		//シングルトン
 		private static BluetoothLEManager instance;
 
@@ -48,6 +52,11 @@ namespace MemoTech.Droid
 			get { return connectedDevices; }
 		}
 
+		public Dictionary<BluetoothDevice, IList<BluetoothGattService>> Services
+		{ 
+			get { return services; }
+		}
+
 		static BluetoothLEManager()
 		{
 			instance = new BluetoothLEManager();
@@ -66,7 +75,7 @@ namespace MemoTech.Droid
 		/// Devicesのスキャンを開始する
 		/// </summary>
 		/// <returns>The scanning for devices.</returns>
-		public async Task BegineScanningForDevices()
+		public async Task BeginScanningForDevices()
 		{
 			discoveredDevices.Clear();
 
@@ -96,24 +105,11 @@ namespace MemoTech.Droid
 		/// </summary>
 		public void OnLeScan(BluetoothDevice device, int rssi, byte[] scanRecord)
 		{
-			if (!DeviceExistsInDiscoveredList(device))
+			if (!ConnectLog.Check(discoveredDevices, device))
 			{
-				Console.WriteLine(device);
 				discoveredDevices.Add(device);
 			}
 			DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device, Rssi = rssi, ScanRecord = scanRecord });
-		}
-
-		protected bool DeviceExistsInDiscoveredList(BluetoothDevice device)
-		{
-			foreach (var d in discoveredDevices)
-			{
-				if (device.Address == d.Address)
-				{
-					return true;
-				}
-			}
-			return false;
 		}
 
 		public void ConnectToDevice(BluetoothDevice device)
@@ -161,12 +157,28 @@ namespace MemoTech.Droid
 
 						break;
 					case ProfileState.Connected:
-
+						parent.connectedDevices.Add(gatt.Device, gatt);
+						parent.DeviceConnected(this, new DeviceConnectionEventArgs() { Device = gatt.Device });
 						break;
 					case ProfileState.Disconnecting:
 
 						break;
 				}
+			}
+
+			public override void OnServicesDiscovered(BluetoothGatt gatt, GattStatus status)
+			{
+				base.OnServicesDiscovered(gatt, status);
+
+				if (!parent.services.ContainsKey(gatt.Device))
+					parent.Services.Add(gatt.Device, parent.connectedDevices[gatt.Device].Services);
+				else
+					parent.services[gatt.Device] = parent.connectedDevices[gatt.Device].Services;
+
+				parent.ServiceDiscovered(this, new ServiceDiscoveredEventArgs()
+				{
+					Gatt = gatt
+				});
 			}
 		}
 	}

@@ -33,7 +33,7 @@ namespace MemoTech.Scripts.ViewModel
                     break;
             }
 			var cast = (int)buttonState;
-			SaveDataUtility.Save<int>(stateKey, cast);
+			SaveDataUtility.Save(stateKey, cast);
             return buttonState;
         }
 

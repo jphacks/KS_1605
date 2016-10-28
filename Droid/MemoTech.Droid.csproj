@@ -113,7 +113,7 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="Scripts\Utility\BluetoothManager.cs" />
+    <Compile Include="Scripts\Utility\BluetoothLEManager.cs" />
     <Compile Include="Scripts\Utility\DeviceDiscoveredEventArgs.cs" />
     <Compile Include="Scripts\Utility\DeviceConnectionEventArgs.cs" />
     <Compile Include="Scripts\Utility\ServiceDiscoveredEventArgs.cs" />
