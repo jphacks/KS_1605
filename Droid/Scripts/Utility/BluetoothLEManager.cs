@@ -86,6 +86,7 @@ namespace MemoTech.Droid.Scripts.Utility
 
 			if (isScanning)
 			{
+				SaveDataUtility.SaveArray("scaned", discoveredDevices);
 				adapter.StopLeScan(this);
 				ScanTimeoutElapsed(this, new EventArgs());
 			}
@@ -96,6 +97,7 @@ namespace MemoTech.Droid.Scripts.Utility
 		/// </summary>
 		public void StopScanningForDevices()
 		{
+			SaveDataUtility.SaveArray("scaned", discoveredDevices);
 			isScanning = false;
 			adapter.StopLeScan(this);
 		}
@@ -105,6 +107,7 @@ namespace MemoTech.Droid.Scripts.Utility
 		/// </summary>
 		public void OnLeScan(BluetoothDevice device, int rssi, byte[] scanRecord)
 		{
+			Console.WriteLine("Search Device : " + device);
 			if (!ConnectLog.Check(discoveredDevices, device))
 			{
 				discoveredDevices.Add(device);

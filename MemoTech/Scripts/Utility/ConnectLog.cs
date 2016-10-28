@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MemoTech.Scripts.Utility
 {
@@ -35,15 +36,51 @@ namespace MemoTech.Scripts.Utility
 		/// </summary>
 		/// <param name="key">Key.</param>
 		/// <typeparam name="T">The 1st type parameter.</typeparam>
-		public static List<T> CountOrderSort<T>(string key) 
+		public static List<T> CountOrderSort<T>(string key)
 		{
 			var loadData = SaveDataUtility.LoadArray<List<T>>(key);
-			var result = new List<T>();
+			var kind = KindList(loadData);
+			var dic = new Dictionary<T, int>();
+			foreach (var k in kind)
+			{
+				dic.Add(k, 0);
+			}
 			foreach (var data in loadData) 
 			{
-				if (Check(loadData, data)) 
+				for (int i = 0; i < kind.Count; i++) 
 				{
-					
+					if (data.Equals(kind[i])) 
+					{
+						dic[kind[i]] += 1;
+					}
+				}
+			}
+			var cacheOrder = new List<int>();
+			cacheOrder = dic.Values.ToList();
+			cacheOrder.Sort();
+
+			var result = new List<T>();
+			foreach (var order in cacheOrder) 
+			{
+				foreach (var d in dic) 
+				{
+					if (order == d.Value && result.IndexOf(d.Key) == -1)
+					{
+						result.Add(d.Key);
+					}
+				}
+			}
+			return result;
+		}
+
+		private static List<T> KindList<T>(List<T> list)
+		{
+			var result = new List<T>();
+			foreach (var kind in list)
+			{
+				if (result.IndexOf(kind) == -1)
+				{
+					result.Add(kind);
 				}
 			}
 			return result;

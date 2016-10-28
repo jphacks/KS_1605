@@ -9,7 +9,8 @@ namespace MemoTech.Scripts.ViewModel
 		private string stateKey = "buttonState";
 
 		public State buttonState;
-        public string StateTitle { get { return stateTitle[(int)buttonState]; } }
+
+		public string StateTitle { get { return stateTitle[(int)buttonState]; } }
 
 		public MemoTechViewModel()
 		{

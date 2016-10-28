@@ -23,8 +23,8 @@ namespace MemoTech
             
 			list.ItemSelected += async (sender, e) =>
 			{
-				//0は仮処理
-				await Navigation.PushAsync(new AlbumPage(0));
+				var cell = (AlbumListCell)sender;
+				await Navigation.PushAsync(new AlbumPage(cell.Index));
 			};
         }
 
