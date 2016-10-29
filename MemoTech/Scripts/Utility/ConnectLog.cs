@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,6 +8,8 @@ namespace MemoTech.Scripts.Utility
 	public class ConnectLog
 	{
 		private static int connectionCount = 0;
+		private static int kindCount = 0;
+		private const int FRIENT_PERCENT = 2;
 
 		public static int ConnectionCount
 		{
@@ -36,9 +39,10 @@ namespace MemoTech.Scripts.Utility
 		/// </summary>
 		/// <param name="key">Key.</param>
 		/// <typeparam name="T">The 1st type parameter.</typeparam>
-		public static List<T> CountOrderSort<T>(string key)
+		public static Dictionary<T, int> CountOrderSort<T>(string key)
 		{
 			var loadData = SaveDataUtility.LoadArray<List<T>>(key);
+			connectionCount = loadData.Count;
 			var kind = KindList(loadData);
 			var dic = new Dictionary<T, int>();
 			foreach (var k in kind)
@@ -59,25 +63,36 @@ namespace MemoTech.Scripts.Utility
 			cacheOrder = dic.Values.ToList();
 			cacheOrder.Sort();
 
-			var result = new List<T>();
+			var result = new Dictionary<T, int>();
+			var check = new List<T>();
 			foreach (var order in cacheOrder) 
 			{
 				foreach (var d in dic) 
 				{
-					if (order == d.Value && result.IndexOf(d.Key) == -1)
+					if (order == d.Value && check.IndexOf(d.Key) == -1)
 					{
-						result.Add(d.Key);
+						check.Add(d.Key);
+						result.Add(d.Key, d.Value);
 					}
 				}
 			}
 			return result;
 		}
-		/*
-		public static List<T> FriendCheck<T>(List<T> target) 
+
+		public static List<T> FriendCheck<T>(Dictionary<T, int> target) 
 		{
-			
+			var result = new List<T>();
+			foreach (var val in target) 
+			{
+				var percent = ((float)val.Value / (float)connectionCount) * 100;
+				Debug.WriteLine("Percent : " + percent);
+				if (percent >= FRIENT_PERCENT * kindCount) 
+				{
+					result.Add(val.Key);
+				}
+			}
+			return result;
 		}
-		*/
 
 		private static List<T> KindList<T>(List<T> list)
 		{
@@ -89,6 +104,7 @@ namespace MemoTech.Scripts.Utility
 					result.Add(kind);
 				}
 			}
+			kindCount = result.Count;
 			return result;
 		}
 	}

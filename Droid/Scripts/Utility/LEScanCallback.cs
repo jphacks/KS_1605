@@ -3,7 +3,8 @@ using Android;
 using Android.Bluetooth;
 using Android.Bluetooth.LE;
 
-namespace MemoTech.Droid
+
+namespace MemoTech.Droid.Scripts.Utility
 {
 	public class LEScanCallback : ScanCallback
 	{
@@ -17,7 +18,8 @@ namespace MemoTech.Droid
 		{
 			var device = result.Device;
 			//if (device.Type != BluetoothDeviceType.Le) return;
-			Console.WriteLine("OnScanResult : " + result.Rssi + device.Name + " " + device + " " + device.Address + " " + device.BondState + " " + device.Type + " " + callbackType);
+			Console.WriteLine("OnScanResult : " + result.Rssi + " " + device.Name + " " + device + " " + device.Address + " " + device.BondState + " " + device.Type + " " + callbackType + " " + device.PeerReference);
+			BluetoothLEManager.Instance.DiscoveredDevices.Add(device.ToString());
 		}
 	}
 }

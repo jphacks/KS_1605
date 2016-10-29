@@ -12,7 +12,6 @@ using Java.Util;
 
 namespace MemoTech.Droid.Scripts.Utility
 {
-	//[assembly: UsesFeature("android.hardware.bluetooth", Required=true)]
 	public class BluetoothLEManager : Java.Lang.Object, BluetoothAdapter.ILeScanCallback
 	{
 
@@ -45,7 +44,7 @@ namespace MemoTech.Droid.Scripts.Utility
 
 		public List<string> DiscoveredDevices
 		{
-			get { return discoveredDevices; }
+			get { return discoveredDevices; } set { discoveredDevices = value; }
 		}
 
 		public BluetoothManager Manager
@@ -111,7 +110,21 @@ namespace MemoTech.Droid.Scripts.Utility
 					adapter.BluetoothLeScanner.StopScan(leCallback);
 				}
 				ScanTimeoutElapsed(this, new EventArgs());
-				if (SaveDataUtility.CheckData("scaned")) SaveDataUtility.LoadArray<List<string>>("scaned").ForEach(_ => Console.WriteLine("Load : "+_));
+				if (SaveDataUtility.CheckData("scaned"))
+				{
+					SaveDataUtility.LoadArray<List<string>>("scaned").ForEach(_ => Console.WriteLine("Load : " + _));
+					var dic = ConnectLog.CountOrderSort<string>("scaned");
+					Console.WriteLine("yea");
+					foreach (var a in dic.Keys)
+					{
+						Console.WriteLine("Sort : " + a);
+					}
+					foreach (var a in dic.Values)
+					{
+						Console.WriteLine("Sort : " + a);
+					}
+					ConnectLog.FriendCheck(ConnectLog.CountOrderSort<string>("scaned")).ForEach(_ => Console.WriteLine("Friend : " + _));
+				}
 			}
 		}
 

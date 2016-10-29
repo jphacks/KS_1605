@@ -10,7 +10,8 @@ using Android.OS;
 
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using MemoTech.Scripts.Utility;
+//using MemoTech.Scripts.Utility;
+using MemoTech.Droid.Scripts.Utility;
 
 namespace MemoTech.Droid
 {
@@ -47,21 +48,30 @@ namespace MemoTech.Droid
 
 		private void Bind(App target) 
 		{
+			/*
+			BluetoothLEManager.BLE.StateChanged += (s, e) =>
+			{
+				Console.WriteLine($"The bluetooth state changed to " + e.NewState);
+			};
+			*/
 
-			target.startPage.Main.Clicked += async(sender, e) =>
+			target.startPage.Main.Clicked += (sender, e) =>
 			{
 				Console.WriteLine("Main Button Clicked for Android Process");
-				/*
+
 				if (!BluetoothLEManager.Instance.IsScanning)
 				{
 					BluetoothLEManager.Instance.BeginScanningForDevices();
 				} else {
 					BluetoothLEManager.Instance.StopScanningForDevices();
 				}
-				*/
+
+				/*
+				Console.WriteLine("State " + BluetoothLEManager.BLE.State);
 				var adapter = BluetoothLEManager.Adapter;
-				adapter.DeviceDiscovered += (s, a) => Console.WriteLine("Device : " + a.Device.Id);
+				adapter.DeviceDiscovered += (s, a) => Console.WriteLine("Device : " + a.Device.Name);
 				await adapter.StartScanningForDevicesAsync();
+				*/
 			};
 
 			target.startPage.Stop.Clicked += (sender, e) =>
@@ -73,12 +83,12 @@ namespace MemoTech.Droid
 		private void StopScanning() 
 		{
 			new Task(() => {
-				/*
+				
 				if (BluetoothLEManager.Instance.IsScanning)
 				{
 					BluetoothLEManager.Instance.StopScanningForDevices();
 				}
-				*/
+
 			}).Start();
 		}
 	}
