@@ -12,9 +12,9 @@ namespace MemoTech
 
 		public MemoryViewModel()
 		{
-			listData.Add(new AlbumListCell("Memory Album 1"));
-			listData.Add(new AlbumListCell("Memory Album 2"));
-			listData.Add(new AlbumListCell("Memory Album 3"));
+			listData.Add(new AlbumListCell("Memory Album 1", 1));
+			listData.Add(new AlbumListCell("Memory Album 2", 2));
+			listData.Add(new AlbumListCell("Memory Album 3", 3));
 		}
 	}
 }

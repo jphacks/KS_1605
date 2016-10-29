@@ -14,6 +14,16 @@ namespace MemoTech
         private Button mainButton = null;
         private Button stop = null;
 
+		public Button Main
+		{ 
+			get { return mainButton; }
+		}
+
+		public Button Stop
+		{ 
+			get { return stop; }
+		}
+
 		public MemoTechPage()
 		{
 			InitializeComponent();
@@ -25,7 +35,7 @@ namespace MemoTech
 			InitModel();
 		}
 
-		private void Bind() 
+		private void Bind()
 		{
 			mainButton = this.FindByName<Button>("MainButton");
 			stop = this.FindByName<Button>("StopButton");

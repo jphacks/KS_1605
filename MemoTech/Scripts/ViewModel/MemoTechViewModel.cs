@@ -9,7 +9,8 @@ namespace MemoTech.Scripts.ViewModel
 		private string stateKey = "buttonState";
 
 		public State buttonState;
-        public string StateTitle { get { return stateTitle[(int)buttonState]; } }
+
+		public string StateTitle { get { return stateTitle[(int)buttonState]; } }
 
 		public MemoTechViewModel()
 		{
@@ -33,7 +34,7 @@ namespace MemoTech.Scripts.ViewModel
                     break;
             }
 			var cast = (int)buttonState;
-			SaveDataUtility.Save<int>(stateKey, cast);
+			SaveDataUtility.Save(stateKey, cast);
             return buttonState;
         }
 
