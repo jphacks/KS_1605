@@ -137,6 +137,7 @@
     <Compile Include="Scripts\Utility\ServiceDiscoveredEventArgs.cs" />
     <Compile Include="Scripts\Utility\LEScanCallback.cs" />
     <Compile Include="Bootstrap\BlePluginBootstrap.cs" />
+    <Compile Include="Scripts\Model\ScanActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

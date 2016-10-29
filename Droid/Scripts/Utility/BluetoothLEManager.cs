@@ -29,6 +29,7 @@ namespace MemoTech.Droid.Scripts.Utility
 		private Dictionary<BluetoothDevice, IList<BluetoothGattService>> services = new Dictionary<BluetoothDevice, IList<BluetoothGattService>>();
 		//シングルトン
 		private static BluetoothLEManager instance;
+		public const string saveKey = "scaned";
 
 		//CustomEventのdelegate
 		public event EventHandler ScanTimeoutElapsed = delegate{};
@@ -36,6 +37,8 @@ namespace MemoTech.Droid.Scripts.Utility
 		public event EventHandler<DeviceConnectionEventArgs> DeviceConnected = delegate {};
 		public event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected = delegate {};
 		public event EventHandler<ServiceDiscoveredEventArgs> ServiceDiscovered = delegate {};
+
+		public MemoTech.Scripts.Utility.State Check { get; set; } = MemoTech.Scripts.Utility.State.Start;
 
 		public bool IsScanning
 		{
@@ -110,21 +113,6 @@ namespace MemoTech.Droid.Scripts.Utility
 					adapter.BluetoothLeScanner.StopScan(leCallback);
 				}
 				ScanTimeoutElapsed(this, new EventArgs());
-				if (SaveDataUtility.CheckData("scaned"))
-				{
-					SaveDataUtility.LoadArray<List<string>>("scaned").ForEach(_ => Console.WriteLine("Load : " + _));
-					var dic = ConnectLog.CountOrderSort<string>("scaned");
-					Console.WriteLine("yea");
-					foreach (var a in dic.Keys)
-					{
-						Console.WriteLine("Sort : " + a);
-					}
-					foreach (var a in dic.Values)
-					{
-						Console.WriteLine("Sort : " + a);
-					}
-					ConnectLog.FriendCheck(ConnectLog.CountOrderSort<string>("scaned")).ForEach(_ => Console.WriteLine("Friend : " + _));
-				}
 			}
 		}
 
@@ -133,7 +121,7 @@ namespace MemoTech.Droid.Scripts.Utility
 		/// </summary>
 		public void StopScanningForDevices()
 		{
-			SaveDataUtility.SaveArray("scaned", discoveredDevices);
+			SaveDataUtility.SaveArray(saveKey, discoveredDevices);
 			isScanning = false;
 			if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
 			{

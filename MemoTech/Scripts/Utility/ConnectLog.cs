@@ -8,12 +8,11 @@ namespace MemoTech.Scripts.Utility
 	public class ConnectLog
 	{
 		private static int connectionCount = 0;
-		private static int kindCount = 0;
-		private const int FRIENT_PERCENT = 2;
+		private const int FRIENT_PERCENT = 60;
 
 		public static int ConnectionCount
 		{
-			get { return connectionCount; }
+			get { return connectionCount; } set { connectionCount = value; }
 		}
 
 		/// <summary>
@@ -42,7 +41,6 @@ namespace MemoTech.Scripts.Utility
 		public static Dictionary<T, int> CountOrderSort<T>(string key)
 		{
 			var loadData = SaveDataUtility.LoadArray<List<T>>(key);
-			connectionCount = loadData.Count;
 			var kind = KindList(loadData);
 			var dic = new Dictionary<T, int>();
 			foreach (var k in kind)
@@ -84,9 +82,9 @@ namespace MemoTech.Scripts.Utility
 			var result = new List<T>();
 			foreach (var val in target) 
 			{
-				var percent = ((float)val.Value / (float)connectionCount) * 100;
+				var percent = ((float)val.Value * 100) / (float)connectionCount;
 				Debug.WriteLine("Percent : " + percent);
-				if (percent >= FRIENT_PERCENT * kindCount) 
+				if (percent >= FRIENT_PERCENT) 
 				{
 					result.Add(val.Key);
 				}
@@ -104,7 +102,6 @@ namespace MemoTech.Scripts.Utility
 					result.Add(kind);
 				}
 			}
-			kindCount = result.Count;
 			return result;
 		}
 	}

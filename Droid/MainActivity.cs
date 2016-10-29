@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 //using MemoTech.Scripts.Utility;
 using MemoTech.Droid.Scripts.Utility;
+using Xamarin.Forms;
 
 namespace MemoTech.Droid
 {
@@ -66,6 +67,29 @@ namespace MemoTech.Droid
 					BluetoothLEManager.Instance.StopScanningForDevices();
 				}
 
+				if (BluetoothLEManager.Instance.Check == MemoTech.Scripts.Utility.State.Start)
+				{
+					BluetoothLEManager.Instance.Check = MemoTech.Scripts.Utility.State.Share;
+					StartService(new Intent("com.italangmong.memotech.droid.scanactivity"));
+				}
+				else {
+					if (MemoTech.Scripts.Utility.SaveDataUtility.CheckData(BluetoothLEManager.saveKey))
+					{
+						MemoTech.Scripts.Utility.SaveDataUtility.LoadArray<List<string>>(BluetoothLEManager.saveKey).ForEach(_ => Console.WriteLine("Load : " + _));
+						var dic = MemoTech.Scripts.Utility.ConnectLog.CountOrderSort<string>(BluetoothLEManager.saveKey);
+						foreach (var a in dic.Keys)
+						{
+							Console.WriteLine("Sort : " + a);
+						}
+						foreach (var a in dic.Values)
+						{
+							Console.WriteLine("Sort : " + a);
+						}
+						MemoTech.Scripts.Utility.ConnectLog.FriendCheck(MemoTech.Scripts.Utility.ConnectLog.CountOrderSort<string>(BluetoothLEManager.saveKey)).ForEach(_ => Console.WriteLine("Friend : " + _));
+					}
+
+				}
+
 				/*
 				Console.WriteLine("State " + BluetoothLEManager.BLE.State);
 				var adapter = BluetoothLEManager.Adapter;
@@ -78,6 +102,7 @@ namespace MemoTech.Droid
 			{
 				StopScanning();
 			};
+
 		}
 
 		private void StopScanning() 
