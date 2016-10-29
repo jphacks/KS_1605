@@ -102,6 +102,24 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.2.3.2.127\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.BLE.Abstractions">
+      <HintPath>..\packages\Plugin.BLE.1.1.0\lib\MonoAndroid\Plugin.BLE.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.BLE">
+      <HintPath>..\packages\Plugin.BLE.1.1.0\lib\MonoAndroid\Plugin.BLE.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Plugins.BLE">
+      <HintPath>..\packages\MvvmCross.Plugin.BLE.1.1.0\lib\MonoAndroid\MvvmCross.Plugins.BLE.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Plugins.BLE.Droid">
+      <HintPath>..\packages\MvvmCross.Plugin.BLE.1.1.0\lib\MonoAndroid\MvvmCross.Plugins.BLE.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Platform">
+      <HintPath>..\packages\MvvmCross.Platform.4.3.0\lib\MonoAndroid\MvvmCross.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Platform.Droid">
+      <HintPath>..\packages\MvvmCross.Platform.4.3.0\lib\MonoAndroid\MvvmCross.Platform.Droid.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MemoTech\MemoTech.csproj">
@@ -117,6 +135,8 @@
     <Compile Include="Scripts\Utility\DeviceDiscoveredEventArgs.cs" />
     <Compile Include="Scripts\Utility\DeviceConnectionEventArgs.cs" />
     <Compile Include="Scripts\Utility\ServiceDiscoveredEventArgs.cs" />
+    <Compile Include="Scripts\Utility\LEScanCallback.cs" />
+    <Compile Include="Bootstrap\BlePluginBootstrap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

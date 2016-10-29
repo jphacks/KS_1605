@@ -57,6 +57,7 @@
     <Compile Include="Scripts\ViewModel\MemoryViewModel.cs" />
     <Compile Include="Scripts\View\AlbumListCell.cs" />
     <Compile Include="Scripts\Utility\ConnectLog.cs" />
+    <Compile Include="Scripts\Utility\BluetoothLEManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\View\" />

@@ -49,7 +49,7 @@ namespace MemoTech.Scripts.Utility
 			{
 				for (int i = 0; i < kind.Count; i++) 
 				{
-					if (data.Equals(kind[i])) 
+					if (data.Equals(kind[i]))
 					{
 						dic[kind[i]] += 1;
 					}
@@ -72,6 +72,12 @@ namespace MemoTech.Scripts.Utility
 			}
 			return result;
 		}
+		/*
+		public static List<T> FriendCheck<T>(List<T> target) 
+		{
+			
+		}
+		*/
 
 		private static List<T> KindList<T>(List<T> list)
 		{
@@ -85,6 +91,5 @@ namespace MemoTech.Scripts.Utility
 			}
 			return result;
 		}
-
 	}
 }
